@@ -6,7 +6,7 @@
 //
 
 
-//[[1,0],[2,0],[3,1],[3,2]]
+//   4   [[1,0],[2,0],[3,1],[3,2]]
 func findOrder(_ numCourses: Int, _ prerequisites: [[Int]]) -> [Int] {
         var degree = Array(repeating: 0, count: numCourses)
         var edge = Array(repeating: [Int](), count: numCourses)
