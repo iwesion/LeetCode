@@ -40,31 +40,25 @@ class WordDictionary {
     
     func dfs(_ word: String , _ index:Int , _ root:TrieNode) -> Bool {
         var node = root
-        if index == word.count-1 {
+        if index == word.count {
             return node.isEnd
         }
-        for (i,item) in word.enumerated() {
-            if item == "." {
-                for j in 0..<26 {
-                    let child = node.children[j]
-                    if child != nil && dfs(word, i+1, child!) {
-                        return true
-                    }
-                }
-                
-               
-            }else{
-                let a = Int(item.asciiValue!) - aValue
-                if node.children[a] == nil {
-                    return false
-                }else{
-                    node = node.children[a]!
-                }
-                return node.isEnd
+        
+        let ch:Character = Array(word)[index]
+        
+        if ch != "." {
+            let a = Int(ch.asciiValue!) - aValue
+            if node.children[a] != nil  && dfs(word, index + 1, node.children[a]!){
+            return true
             }
-            
+        }else{
+            for i in 0..<26 {
+                if node.children[i] != nil  && dfs(word, index + 1, node.children[i]!) {
+                    return true
+                }
+            }
         }
-        return true
+        return false
 }
     
 }
