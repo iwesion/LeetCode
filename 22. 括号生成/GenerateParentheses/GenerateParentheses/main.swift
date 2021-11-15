@@ -8,33 +8,42 @@
 import Foundation
 
 func generateParenthesis(_ n: Int) -> [String] {
-    var res:[String] = []
-    let dic :[String:Int] = ["(":1,")":-1]
-    //因为左边必须为"("
-    var s = 1
-    var n = n-1
-    
-    
-    var x = 0
-    
-    for i in 0...n {
-        var str = "("
-        str += "("
-        for j in 0...n {
-            str += ")"
-        }
-        print(str)
+
+    if n == 1 {
+        return ["()"]
+    }else{
+        return addBracket(["()"],n-1)
     }
     
+}
+
+func addBracket(_ s:[String],_ n:Int) -> [ String] {
+    var res:[ String] = []
     
     
+    for item in s {
+        
+        for i in 0..<item.count {
+            var item = item
+            item.insert(contentsOf: "()", at: item.index(item.startIndex, offsetBy: i))
+            if !res.contains(item) {
+                res.append(item)
+            }
+            
+        }
+    }
+    if n == 1 {
+        return res
+    }else{
+        return addBracket(res, n - 1)
+    }
+       
     
-    return res
 }
 
 
 
 
-let res = generateParenthesis(3)
+let res = generateParenthesis(4)
 
 print(res)
