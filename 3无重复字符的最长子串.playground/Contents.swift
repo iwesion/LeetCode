@@ -39,26 +39,42 @@
 
 
 
+//func lengthOfLongestSubstring(_ s: String) -> Int {
+//    var dic = [Character : Int]()  // 字典，通过key 保存数组end
+//    var start = 0   // 起点Index
+//    var count = 0   // 最大数量
+//    for (index,item) in s.enumerated() {
+//        //出现item
+//        let oldIndex = dic[item] ?? -1
+//        if start <= oldIndex {
+//            start = oldIndex + 1
+//        }
+//        dic[item] = index
+//
+//        print(dic)
+//        count = max(count, index - start + 1)
+//
+//
+//    }
+//    return count
+//}
 func lengthOfLongestSubstring(_ s: String) -> Int {
-    var dic = [Character : Int]()  // 字典，通过key 保存数组end
-    var start = 0   // 起点Index
-    var count = 0   // 最大数量
-    for (index,item) in s.enumerated() {
-        //出现item
-        let oldIndex = dic[item] ?? -1
-        if start <= oldIndex {
-            start = oldIndex + 1
+    var dic = [Character : Int]()  // 字典，通过key 保存数组所在的位置
+    let sArr = Array(s)
+    var res:Int = 0
+    
+    for i in 0..<sArr.count{
+        
+        if dic[sArr[i]] == nil{
+            dic[sArr[i]] = i
+        }else{
+            res = max(res, i - dic[sArr[i]]!)
+            dic[sArr[i]]! = i
         }
-        dic[item] = index
-        
-        print(dic)
-        count = max(count, index - start + 1)
-        
-
     }
-    return count
+    return res
+    
 }
-
-var s = "anvianaj"
+var s = " "
 
 lengthOfLongestSubstring(s)
