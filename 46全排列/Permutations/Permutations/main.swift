@@ -4,31 +4,32 @@
 //
 //  Created by wesion on 2021/8/19.
 //
-
+var res:[[Int]] = []
+    var path:[Int] = []
+    var used:[Bool] = []
 func permute(_ nums: [Int]) -> [[Int]] {
-    var res:[[Int]] = []
-    var arr:[Int] = Array.init()
-  
-    DFS(nums, 0, &arr, &res)
-   
-    
-    
-    return res
-}
-
-func DFS(_ nums: [Int],_ len:Int ,_ arr:inout[Int] , _ res:inout[[Int]]) {
-    if arr.count == nums.count {
-        res.append(arr)
-        arr.removeAll()
-    }
-    
-    
-    for i in 0..<nums.count {
        
-        
-    }
-    
-}
+       used = Array.init(repeating:false, count: nums.count)
+       dfs(nums,0)
+       return res
+   }
+   func dfs(_ nums: [Int],_ idx:Int){
+       
+       if path.count == nums.count{
+           res.append(path)
+           return
+       }
+       for i in 0..<nums.count{
+           if used[i] {
+               continue
+           }
+           used[i] = true
+           path.append(nums[i])
+           dfs(nums,i+1)
+           used[i] = false
+           path.removeLast()
+       }
+   }
 
 
 
