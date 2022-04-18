@@ -50,35 +50,58 @@ public class TreeNode {
 //    tree(root?.left, deep+1)
 //    tree(root?.right, deep+1)
 //}
-var res:[[Int]] = []
+
 func levelOrder(_ root: TreeNode?) -> [[Int]] {
-    
-    dfs(root, 0)
+    var res:[[Int]] = []
+    dfs(root, 0 , &res)
     
     return res
     
     
 }
-func dfs(_ root: TreeNode?,_ deep:Int){
-    if root == nil {
+func dfs(_ root: TreeNode?,_ deep:Int , _ res:inout [[Int]]){
+    guard let root = root else {
         return
     }
-    if res.count > 0{
-        if res.count > deep {
-            res[deep].append(root!.val)
-        }else{
-            res.append([root!.val])
-        }
+    if deep >= res.count {
+        res.append([root.val])
     }else{
-        res.append([root!.val])
+        res[deep].append(root.val)
     }
     
     
-    
-    dfs(root?.left, deep+1)
-    dfs(root?.right, deep+1)
+    dfs(root.left, deep+1,&res)
+    dfs(root.right, deep+1,&res)
     
 }
+
+
+////BFS
+//    func levelOrder1(_ root: TreeNode?) -> [[Int]] {
+//        var res:[[Int]] = []
+//        var queue:[TreeNode] = []
+//        guard let root = root else{
+//            return res
+//        }
+//        queue.append(root)
+//        while !queue.isEmpty{
+//            let size = queue.count
+//            var sub:[Int] = []
+//            for i in 0..<size{
+//                var node = queue.removeFirst()
+//                sub.append(node.val)
+//                if node.left != nil{
+//                    queue.append(node.left!)
+//                }
+//                if node.right != nil{
+//                    queue.append(node.right!)
+//                }
+//            }
+//            res.append(sub)
+//        }
+//        return res
+//    }
+
 
 let root:TreeNode = .init(1, .init(9), .init(20, .init(15), .init(7)))
 print(levelOrder(root))
